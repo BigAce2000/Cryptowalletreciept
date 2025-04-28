@@ -1,0 +1,50 @@
+function randomTxId() {
+  let s='';
+  for(let i=0;i<16;i++){
+    s+=Math.floor(Math.random()*16).toString(16);
+  }
+  return '0x'+s;
+}
+
+function generateReceipt(){
+  const coin    = document.getElementById('coin').value;
+  const address = document.getElementById('address').value||'—';
+  const amount  = document.getElementById('amount').value||'—';
+  const memo    = document.getElementById('memo').value||'—';
+  const status  = document.getElementById('status').value;
+
+  const logos = {
+    sent:    'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Checkmark_green.svg/800px-Checkmark_green.svg.png',
+    pending: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Hourglass-symbol.svg/1024px-Hourglass-symbol.svg.png',
+    failed:  'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Red_x.svg/1024px-Red_x.svg.png'
+  };
+  const texts = { sent:'Payment Sent', pending:'Payment Pending', failed:'Payment Failed' };
+  const colors= { sent:'#4CAF50', pending:'#FFA500', failed:'#FF0000' };
+
+  document.getElementById('form-page').style.display='none';
+  const receiptEl=document.getElementById('receipt-page');
+  receiptEl.style.display='block';
+
+  receiptEl.innerHTML=`
+    <div class="header">Crypto Wallet Receipt</div>
+    <div class="status">
+      <img src="${logos[status]}" width="60" alt="${texts[status]}"><br>
+      <h3 style="color:${colors[status]};margin-top:10px;">${texts[status]}</h3>
+    </div>
+    <div class="receipt-info">
+      <div class="info-item"><strong>Transaction ID:</strong> ${randomTxId()}</div>
+      <div class="info-item"><strong>Date:</strong> ${new Date().toLocaleString()}</div>
+      <div class="info-item"><strong>Amount:</strong> ${amount} ${coin}</div>
+      <div class="info-item"><strong>Currency:</strong> ${coin}</div>
+      <div class="info-item"><strong>Wallet Address:</strong> ${address}</div>
+      <div class="info-item"><strong>Payment Note:</strong> ${memo}</div>
+    </div>
+    <div class="receipt-footer">
+      <button onclick="goBack()">Generate Another</button>
+    </div>`;
+}
+
+function goBack(){
+  document.getElementById('receipt-page').style.display='none';
+  document.getElementById('form-page').style.display='block';
+}
