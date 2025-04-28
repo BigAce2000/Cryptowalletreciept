@@ -31,12 +31,12 @@ function generateReceipt() {
     failed:  '#FF0000'
   };
 
-  // swap pages
-  document.getElementById('form-page').style.display    = 'none';
+  // Swap pages
+  document.getElementById('form-page').style.display = 'none';
   const receiptEl = document.getElementById('receipt-page');
   receiptEl.style.display = 'block';
 
-  // inject receipt HTML
+  // Create receipt HTML
   receiptEl.innerHTML = `
     <div class="header">Crypto Wallet Receipt</div>
     <div class="status">
@@ -50,7 +50,7 @@ function generateReceipt() {
       <div class="info-item"><strong>Date:</strong> ${new Date().toLocaleString()}</div>
       <div class="info-item"><strong>Amount:</strong> ${amount} ${coin}</div>
       <div class="info-item"><strong>Currency:</strong> ${coin}</div>
-      <div class="info-item"><strong>Wallet Address:</strong> ${address}</div>
+      <div class="info-item"><strong>Wallet Address:</strong><br><code style="word-break: break-all;">${address}</code></div>
       <div class="info-item"><strong>Payment Note:</strong> ${memo}</div>
     </div>
     <div class="receipt-footer">
@@ -61,5 +61,5 @@ function generateReceipt() {
 
 function goBack() {
   document.getElementById('receipt-page').style.display = 'none';
-  document.getElementById('form-page').style.display    = 'block';
+  document.getElementById('form-page').style.display = 'block';
 }
